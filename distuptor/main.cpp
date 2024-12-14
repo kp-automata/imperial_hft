@@ -12,6 +12,13 @@
 #include <vector>
 #include <chrono>
 
+#include <boost/beast.hpp>
+
+
+std::string fetch() {
+   ;
+}
+
 int main() {
     size_t bufferSize = 1024;
 
@@ -29,15 +36,18 @@ int main() {
     // Create the Disruptor
     Disruptor disruptor(bufferSize, processors, producers, new YieldWaitStrategy());
 
-    
+
     // Start the Disruptor
     disruptor.start();
 
     // Generate some data in the producer
-    for (int i = 0; i < 100; ++i) {
-        producer.onData("Event " + std::to_string(i));
-        std::this_thread::sleep_for(std::chrono::milliseconds(1)); // slow down the producer a bit
-    }
+    // TODO: Insert real data
+    // producer.onData takes strings
+    producer.onData(fetch());
+    // for (int i = 0; i < 100; ++i) {
+    //     producer.onData("Event " + std::to_string(i));
+    //     //std::this_thread::sleep_for(std::chrono::milliseconds(1)); // slow down the producer a bit
+    // }
 
     // Stop the Disruptor
     disruptor.halt();
